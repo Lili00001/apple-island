@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--
+      允许明文（HTTP）流量，便于本地调试：
+      - Android 模拟器连接电脑后端用 http://10.0.2.2:3000
+      - 同一局域网真实设备用 http://<电脑IP>:3000
+      生产环境请改用 HTTPS，并删除/收紧此配置（保留系统证书即可）。
+    -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

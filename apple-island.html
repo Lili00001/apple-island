@@ -1,0 +1,1276 @@
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FAFAF7">
+<title>苹果岛</title>
+<style>
+:root{
+ --bg:#fafaf7;--paper:#fff;--ink:#30382f;--muted:#7e8978;
+ --green:#64835c;--light:#edf4e8;--red:#b96558;--rose:#fbece6;
+ --line:#e9eee4;--shadow:0 5px 20px #48633c05
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:#eef3e9;color:var(--ink);
+ font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+ -webkit-font-smoothing:antialiased
+}
+button,input,textarea,select{font:inherit}
+button{border:0;background:none;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+ outline:2px solid var(--green);outline-offset:3px
+}
+svg{display:block}
+.icon{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.app{max-width:440px;min-height:100dvh;margin:auto;background:var(--bg);padding:25px 21px 112px}
+header{display:flex;justify-content:space-between;align-items:center;margin:6px 0 25px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:15px;background:var(--rose);color:var(--red)}
+h1{margin:0;font-size:25px;font-weight:600;letter-spacing:2px}
+.english{font-size:8px;letter-spacing:2px;color:#89987e;margin-top:5px}
+h2,h3,p{margin:0}
+.add{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:white;font-size:25px;font-weight:300;color:var(--green)}
+.section,.page-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.section{margin:24px 0 13px}
+.section h3{font-size:15px;font-weight:600}
+.page-head{margin:0 0 21px}
+.page-head h2{font-size:23px;font-weight:600}
+.section-title{display:flex;align-items:center;gap:8px}
+.marker{width:5px;height:13px;border-radius:3px;background:#dfa08d}
+.link{padding:7px 0;font-size:11px;color:var(--green)}
+.muted{font-size:11px;line-height:1.8;color:var(--muted)}
+.card{padding:18px;border-radius:23px;border:1px solid var(--line);background:white;box-shadow:var(--shadow)}
+.overview{position:relative;overflow:hidden;background:linear-gradient(120deg,#edf5e7,#f3f7ee);padding:21px;border-radius:25px;border:1px solid #e4eddc}
+.overview:after{content:"";position:absolute;width:150px;height:150px;border:24px solid #ffffff5e;border-radius:50%;right:-60px;top:-69px;pointer-events:none}
+.overview-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.overview-date{font-size:11px;color:#718768}
+.weather{font-size:10px;color:#779467;display:flex;align-items:center;gap:5px}
+.weather .icon{width:15px;height:15px;color:#b3a467}
+.overview h2{font-size:22px;font-weight:500;margin:17px 0 8px;position:relative;z-index:1}
+.overview p{font-size:11px;color:#768970;line-height:1.8}
+.overview-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid #dce8d4}
+.overview-numbers{display:flex;gap:26px}
+.overview-number strong{font-size:23px;font-weight:400;color:#5f7f53}
+.overview-number span{display:block;font-size:9px;color:#7c9071;margin-top:4px}
+.overview-add{width:37px;height:37px;display:grid;place-items:center;background:var(--green);color:white;border-radius:13px;font-size:23px}
+.apple-mini{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:11px 14px;background:var(--rose);border:1px solid #f3dfd5;border-radius:19px;margin-top:11px}
+.mini-avatar{position:relative;width:46px;height:46px;overflow:hidden;background:#d48976;border-radius:15px;flex-shrink:0}
+.rabbit-art{position:absolute;width:143px;height:174px;right:1px;bottom:6px}
+.mini-avatar .rabbit-art{width:48px;height:56px;right:-1px;bottom:-5px}
+.mini-copy{flex:1}
+.mini-copy strong{display:block;font-size:12px;font-weight:500;color:#985f4f}
+.mini-copy small{display:block;font-size:10px;color:#a67a68;margin-top:5px}
+.mini-arrow{font-size:20px;color:#bf8c79}
+.quick-habits{display:flex;gap:8px;overflow:auto;scrollbar-width:none;padding-bottom:2px}
+.quick-habit{display:flex;align-items:center;gap:9px;padding:12px 13px;background:white;border:1px solid var(--line);border-radius:14px;flex-shrink:0}
+.quick-name{font-size:12px;padding:0}
+.quick-check{width:22px;height:22px;border-radius:50%;border:1px solid #d7e3cf;display:grid;place-items:center;color:var(--green);font-size:16px;padding:0}
+.quick-check.done{background:#e7f0df;border-color:#e7f0df}
+.quick-check .icon{width:15px;height:15px}
+.filter-row{display:flex;align-items:center;gap:7px;overflow:auto;scrollbar-width:none;padding:1px 0 11px}
+.scope{font-size:12px;padding:7px 13px;border-radius:20px;color:#84937b;white-space:nowrap}
+.scope.active{color:var(--green);background:#eaf2e3}
+.tag-filter{padding:7px 10px;border:1px solid var(--line);background:white;color:#86957c;border-radius:9px;font-size:10px;white-space:nowrap}
+.tag-filter.active{background:#66875c;border-color:#66875c;color:white}
+.filter-summary{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:0 0 12px;font-size:10px;color:#8a9783}
+.filter-summary button{font-size:10px;color:var(--red);padding:4px}
+
+/* 瀑布流：按卡片实际高度计算网格占位 */
+.masonry{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:8px;gap:12px;align-items:start}
+.tile{min-width:0}
+.photo-card{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.photo-open{display:block;width:100%;text-align:left;padding:0}
+.photo-open img{display:block;width:100%;height:auto;max-height:320px;object-fit:cover;background:#f2f5ec}
+.photo-copy{padding:12px 12px 4px}
+.photo-copy p{font-size:12px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;padding:6px 12px 0}
+.card-tag{font-size:9px;color:#7c9570;background:#f0f6e9;padding:4px 6px;border-radius:6px;max-width:100%;overflow-wrap:anywhere}
+.card-tag.rabbit{background:#fff0e9;color:#b27862}
+.photo-bottom{display:flex;justify-content:space-between;align-items:center;padding:1px 7px 5px 12px;gap:4px}
+.photo-bottom small{font-size:9px;color:#93a089}
+.more{font-size:18px;min-width:30px;min-height:33px;color:#94a08b}
+.load-more{display:block;margin:20px auto 0;font-size:11px;color:var(--green);padding:10px 22px;border:1px solid var(--line);border-radius:20px;background:white}
+.welcome{padding:24px 18px;border:1px solid var(--line);border-radius:21px;background:radial-gradient(circle at 90% 10%,#fff1d9 0,#fff1d9 28px,transparent 29px),white}
+.welcome h3{font-size:15px;font-weight:500;margin-bottom:9px}
+.welcome p{font-size:11px;line-height:1.9;color:var(--muted)}
+.welcome-tags{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0 8px}
+.welcome-tags span{font-size:10px;color:#a18b65;background:#fcf6e9;padding:6px 9px;border-radius:9px}
+.empty{padding:28px 18px;text-align:center;background:#f3f7ed;border:1px dashed #dbe6d0;border-radius:22px}
+.empty .icon{margin:auto;color:#9aaf86;width:28px;height:28px}
+.empty h3{font-size:14px;font-weight:500;margin:12px 0 8px}
+.empty p{font-size:11px;line-height:1.8;color:var(--muted)}
+.empty button{font-size:11px;color:var(--green);margin-top:14px}
+.foot{font-size:10px;line-height:1.9;color:#8d9b82;text-align:center;margin:22px 0 0}
+.brand-foot{display:flex;justify-content:center;align-items:center;gap:7px;margin-top:26px;color:#a0ad93;font-size:9px;letter-spacing:1.5px}
+.brand-foot .icon{width:13px;height:13px;color:#c4967e}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(440px,100%);display:flex;justify-content:space-around;padding:13px 12px calc(17px + env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid var(--line);backdrop-filter:blur(20px);z-index:10}
+.nav-item{display:flex;align-items:center;flex-direction:column;gap:7px;font-size:10px;color:#a1ad96;width:64px}
+.nav-item.active{color:var(--green)}
+.nav-item.active.rabbit{color:var(--red)}
+.month-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}
+.month-head strong{font-size:16px;font-weight:500}
+.arrow{width:33px;height:33px;font-size:24px;color:var(--green)}
+.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px 4px;text-align:center}
+.weekday{font-size:10px;color:var(--muted);padding-bottom:8px}
+.day{height:43px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;border-radius:13px;font-size:12px}
+.day.today{box-shadow:inset 0 0 0 1px #bfcfb1}
+.day.selected{background:var(--green);color:white}
+.day.checked{background:#e8f1df;color:#63814e}
+.day.checked.today{background:var(--green);color:white}
+.day small{height:7px;font-size:8px;line-height:7px}
+.dots{display:flex;gap:3px;height:4px}
+.dot{width:4px;height:4px;border-radius:50%;background:#d8b780;display:inline-block}
+.dot.rabbit{background:#ce8b75}
+.dot.habit{background:#92b27a}
+.day.selected .dot{filter:brightness(1.5)}
+.legend{display:flex;justify-content:center;gap:16px;font-size:10px;color:var(--muted);margin-top:17px}
+.legend span{display:flex;align-items:center;gap:5px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}
+.stat{background:white;border:1px solid var(--line);border-radius:18px;text-align:center;padding:17px 3px}
+.stat strong{font-size:27px;font-weight:400;color:#628050;font-variant-numeric:tabular-nums}
+.stat.red strong{color:var(--red)}
+.stat small{display:block;font-size:9px;color:var(--muted);margin-top:7px}
+.rabbit-hero{position:relative;padding:25px;background:linear-gradient(120deg,#cc8170,#b96558);border-radius:25px;min-height:215px;overflow:hidden}
+.rabbit-hero:before{content:"";position:absolute;width:175px;height:175px;right:-40px;top:-60px;border:26px solid #ffe4cb12;border-radius:50%}
+.rabbit-hero h2{color:#fffaf0;font-size:35px;font-weight:500;letter-spacing:2px;margin:21px 0 13px}
+.kicker{color:#ffe5d2;font-size:8px;letter-spacing:2.4px}
+.rabbit-hero .badge{display:inline-block;color:#fff1e2;background:#fff0d91c;border:1px solid #ffe6cf33;border-radius:20px;padding:6px 10px;font-size:9px}
+.rabbit-hero .muted{color:#ffe8d7;font-size:10px;max-width:52%;margin-top:15px;overflow-wrap:anywhere}
+.app[data-page="rabbit"] .stats{border:1px solid #f0e7dd;border-radius:20px;background:white;padding:5px 0;gap:0}
+.app[data-page="rabbit"] .stat{border:0;border-radius:0;background:transparent;margin:10px 0;padding:6px 3px}
+.app[data-page="rabbit"] .stat+.stat{border-left:1px solid #f0e7dd}
+.app[data-page="rabbit"] .stat strong{color:#b5745f}
+.app[data-page="rabbit"] .section .link,.app[data-page="rabbit"] .page-head .link{color:var(--red)}
+.timeline{border-left:1px solid #ecdccd;margin-left:5px;padding-left:20px}
+.timeline-group{position:relative;margin-bottom:23px}
+.timeline-group:before{content:"";position:absolute;left:-27px;top:2px;width:7px;height:7px;background:#cb8c74;border-radius:50%;border:3px solid var(--bg)}
+.timeline-date{font-size:10px;color:#a1907c;margin-bottom:11px}
+.timeline-cards{display:flex;flex-direction:column;gap:12px}
+.timeline-cards .photo-open img{width:100%;max-height:300px}
+.habit-row{display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--line);padding:14px;border-radius:19px;margin-bottom:9px}
+.habit-symbol{width:38px;height:38px;display:grid;place-items:center;background:var(--light);color:var(--green);border-radius:13px;font-size:16px;flex-shrink:0}
+.habit-main{text-align:left;flex:1;padding:3px 0;min-width:0}
+.habit-main strong{display:block;font-size:13px;font-weight:500;overflow-wrap:anywhere}
+.habit-main small{display:block;font-size:10px;color:var(--muted);margin-top:6px}
+.check{height:30px;width:30px;border:1px solid #ccddbe;border-radius:50%;display:grid;place-items:center;font-size:18px;color:var(--green);flex-shrink:0}
+.check.done{background:var(--green);border-color:var(--green);color:white}
+.check .icon{width:18px;height:18px}
+.tabs{display:flex;gap:8px;overflow:auto;scrollbar-width:none;padding:0 0 14px}
+.chip{padding:9px 15px;border-radius:24px;background:white;border:1px solid var(--line);font-size:12px;white-space:nowrap;color:#839678}
+.chip.active{background:var(--green);border-color:var(--green);color:white}
+.segment{display:flex;background:#edf3e6;border-radius:13px;padding:4px;margin:18px 0}
+.segment button{flex:1;border-radius:10px;font-size:12px;padding:9px;color:#87987a}
+.segment button.active{background:white;color:var(--ink);box-shadow:0 2px 5px #46523408}
+.review-stats .stat{border:0;padding:9px 2px}
+.bars{height:166px;display:grid;grid-template-columns:repeat(12,1fr);gap:5px;align-items:end;margin-top:23px}
+.bar{height:166px;padding:0;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;gap:8px}
+.bar em{font-style:normal;font-size:9px;color:var(--muted)}
+.bar i{display:block;width:100%;max-width:16px;min-height:3px;background:#bdd4a7;border-radius:5px}
+.bar.current i{background:var(--green)}
+.bar small{font-size:9px;color:#8c9d7e}
+.info{padding:14px 16px;background:var(--light);border-radius:16px;font-size:11px;color:#748768;line-height:1.9;margin-top:15px}
+.overlay{position:fixed;inset:0;background:#30412955;backdrop-filter:blur(4px);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.overlay[hidden]{display:none}
+.sheet{width:min(440px,100%);max-height:92dvh;overflow:auto;background:var(--bg);border-radius:28px 28px 0 0;padding:12px 23px calc(25px + env(safe-area-inset-bottom))}
+.handle{width:34px;height:4px;border-radius:4px;background:#dce5d2;margin:0 auto 20px}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.sheet-top h2{font-size:19px;font-weight:500}
+.close{width:32px;height:32px;font-size:21px;color:#8b9a7e}
+label.field{display:block;font-size:11px;color:#76896a;margin:16px 0 8px}
+input,textarea,select{width:100%;background:white;border:1px solid #dfe8d7;border-radius:12px;padding:12px;color:var(--ink);min-width:0}
+textarea{min-height:85px;resize:vertical}
+.primary,.secondary,.danger{width:100%;padding:14px;border-radius:15px;margin-top:13px;font-size:13px}
+.primary{background:var(--green);color:white}
+.secondary{background:#edf4e7;color:var(--green)}
+.danger{background:var(--rose);color:var(--red)}
+.preview{width:100%;max-height:175px;object-fit:cover;border-radius:14px;margin-top:12px}
+.preview[hidden]{display:none}
+.tag-options{display:flex;flex-wrap:wrap;gap:7px}
+.tag-option{font-size:11px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:white;color:#839578}
+.tag-option.selected{background:#e5f0dc;color:#597d48;border-color:#cdddbe}
+.inline-input{display:flex;gap:8px;margin-top:10px}
+.inline-input input{flex:1;font-size:12px;padding:10px}
+.inline-input button{font-size:11px;padding:0 13px;background:var(--light);border-radius:11px;color:var(--green);white-space:nowrap}
+.manage-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);gap:10px}
+.manage-row strong{font-size:13px;font-weight:500;overflow-wrap:anywhere}
+.manage-row small{display:block;font-size:10px;color:var(--muted);margin-top:6px}
+.delete{color:var(--red);font-size:11px;padding:10px;flex-shrink:0}
+.detail-image{width:100%;height:auto;display:block;border-radius:17px;margin:12px 0}
+.detail-text{font-size:14px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere;margin:15px 0}
+.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:#3c5233f2;color:white;border-radius:22px;padding:12px 19px;max-width:88%;font-size:12px;text-align:center;z-index:30;line-height:1.7}
+.toast[hidden]{display:none}
+
+/* ===== 云同步 / 登录 相关样式 ===== */
+.sync-pill{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);background:white;border:1px solid var(--line);border-radius:20px;padding:7px 11px;white-space:nowrap}
+.sync-pill .dot-status{width:8px;height:8px;border-radius:50%;background:#c8d2bf;flex-shrink:0}
+.sync-pill.syncing .dot-status{background:#d8b780;animation:pulse 1s infinite}
+.sync-pill.idle .dot-status{background:#7fae6a}
+.sync-pill.error .dot-status{background:var(--red)}
+.sync-pill.offline .dot-status{background:#b9b2a6}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.auth-screen{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:26px;background:linear-gradient(160deg,#eef3e9,#dfe9d6)}
+.auth-screen[hidden]{display:none}
+.auth-card{width:100%;max-width:380px;background:white;border-radius:28px;padding:30px 24px 26px;box-shadow:0 25px 60px #46523420;border:1px solid var(--line)}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.auth-brand .logo{width:46px;height:46px;border-radius:15px;background:var(--rose);color:var(--red);display:grid;place-items:center;font-size:24px}
+.auth-brand h2{margin:0;font-size:22px;font-weight:600;letter-spacing:1px}
+.auth-brand small{display:block;font-size:9px;letter-spacing:2px;color:#89987e;margin-top:4px}
+.auth-tabs{display:flex;background:#edf3e6;border-radius:13px;padding:4px;margin-bottom:18px}
+.auth-tabs button{flex:1;border-radius:10px;font-size:13px;padding:10px;color:#87987a}
+.auth-tabs button.active{background:white;color:var(--ink);box-shadow:0 2px 5px #46523408}
+.auth-msg{font-size:11px;line-height:1.7;margin:10px 0 0;min-height:1px}
+.auth-msg.ok{color:var(--green)}
+.auth-msg.err{color:var(--red)}
+.account-box{margin-top:6px;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--light)}
+.account-box .row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;margin:6px 0}
+.account-box .row span{color:var(--muted);font-size:10px}
+.server-line{font-size:10px;color:var(--muted);margin-top:10px;word-break:break-all}
+@media(min-width:600px){
+ .app{margin:26px auto;min-height:870px;border-radius:35px;box-shadow:0 25px 80px #58714115}
+ nav{bottom:26px;border-radius:0 0 35px 35px}
+ .auth-screen{border-radius:0}
+}
+@media(prefers-reduced-motion:no-preference){
+ button{transition:background .15s}
+}
+
+/* ===== 月历：心情版 / 图片版 ===== */
+.cal-switch{display:flex;background:#edf3e6;border-radius:13px;padding:4px;margin-bottom:15px}
+.cal-switch button{flex:1;border-radius:10px;font-size:12px;padding:9px;color:#87987a}
+.cal-switch button.active{background:white;color:var(--ink);box-shadow:0 2px 5px #46523408}
+.cal-subfilter{display:flex;gap:7px;margin:0 0 14px;overflow:auto;scrollbar-width:none;padding-bottom:2px}
+.cal-subfilter button{font-size:11px;padding:6px 13px;border-radius:18px;background:#f4f8ef;color:#829478;white-space:nowrap;border:1px solid #e7eee0}
+.cal-subfilter button.active{background:var(--green);color:#fff;border-color:var(--green)}
+.day{position:relative;overflow:hidden}
+.day .dnum{position:relative;z-index:2}
+.mood-badge{width:26px;height:26px;display:grid;place-items:center;z-index:2}
+.mood-svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.day.mood-day{background:#eef5e9}
+.day.selected.mood-day{background:var(--green);color:#fff}
+/* 图片版拼图 */
+.day .dnum-photo{position:absolute;top:3px;left:0;right:0;text-align:center;font-size:10px;font-weight:600;color:#fff;text-shadow:0 1px 3px #0007;z-index:3}
+.day-photo{position:absolute;inset:0;border-radius:11px;overflow:hidden;display:grid;gap:2px;background:#eef2e8}
+.day-photo .pc{background-size:cover;background-position:center;background-repeat:no-repeat}
+.day-photo.n1{grid-template:1fr/1fr}
+.day-photo.n2{grid-template:1fr 1fr/1fr}
+.day-photo.n3{grid-template:1fr 1fr/1fr 1fr}
+.day-photo.n3 .pc:first-child{grid-row:1/3}
+.day-photo.n4{grid-template:1fr 1fr/1fr 1fr}
+.day-photo .more-mask{position:absolute;inset:0;background:#0007;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:600;z-index:4}
+/* 图片版：放大格子让照片清晰可见（通用日历是 43px，这里单独放大） */
+.calendar.photo-mode .day{height:70px}
+.calendar.photo-mode .day.today{outline:2px solid #e6b873;outline-offset:-2px}
+.calendar.photo-mode .day.selected{background:transparent;outline:3px solid var(--green);outline-offset:-3px;color:#fff}
+/* 表单心情选择器 */
+.mood-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.mood-pick{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:13px;background:#fff;color:#6f7d66;padding:0}
+.mood-pick .mood-svg{width:24px;height:24px}
+.mood-pick.active{background:#e7f0df;border-color:#bcd3a9;color:var(--green)}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+ <header>
+  <div class="brand">
+   <button class="logo" id="settingsButton" data-action="settings" aria-label="设置与备份"></button>
+   <div><h1>苹果岛</h1><div class="english">APPLE ISLAND</div></div>
+  </div>
+  <button class="sync-pill offline" id="syncPill" data-action="sync-panel" aria-label="云同步状态与账号"><span class="dot-status"></span><span id="syncPillText">未登录</span></button>
+  <button class="add" data-action="entry" aria-label="新增记录">＋</button>
+ </header>
+ <main id="content"></main>
+</div>
+<nav id="nav" aria-label="主导航"></nav>
+<div class="overlay" id="overlay" hidden="">
+ <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="handle"></div>
+  <div class="sheet-top">
+   <h2 id="modalTitle"></h2>
+   <button class="close" data-action="close" aria-label="关闭">×</button>
+  </div>
+  <div id="modalBody"></div>
+ </section>
+</div>
+<div class="toast" id="toast" role="status" hidden=""></div>
+
+<div class="auth-screen" id="authScreen" hidden="">
+ <section class="auth-card" role="dialog" aria-modal="true" aria-label="账号登录">
+  <div class="auth-brand"><div class="logo">🍎</div><div><h2>苹果岛</h2><small>APPLE ISLAND</small></div></div>
+  <div class="auth-tabs">
+   <button data-auth-mode="login" class="active" aria-pressed="true">登录</button>
+   <button data-auth-mode="register" aria-pressed="false">注册</button>
+  </div>
+  <form id="authForm" autocomplete="on">
+   <label class="field" for="authServer">服务器地址</label>
+   <input id="authServer" type="url" placeholder="https://你的服务器地址（可留空用默认）" inputmode="url">
+   <label class="field" for="authUser">账号</label>
+   <input id="authUser" type="text" placeholder="用户名 / 手机号" required maxlength="32" autocomplete="username">
+   <label class="field" for="authPass">密码</label>
+   <input id="authPass" type="password" placeholder="至少 6 位" required minlength="6" autocomplete="current-password">
+   <button class="primary" type="submit" id="authSubmit">登录</button>
+   <p class="auth-msg" id="authMsg"></p>
+  </form>
+  <button class="link" id="authSkip" style="display:block;width:100%;text-align:center;margin-top:6px">本地使用（暂不登录）</button>
+ </section>
+</div>
+
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const KEY='apple-island-v3';
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+const localDate=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const today=()=>localDate(new Date());
+const currentMonth=()=>today().slice(0,7);
+const uid=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+const dayNo=s=>{const [y,m,d]=s.split('-').map(Number);return Date.UTC(y,m-1,d)/86400000};
+const validDate=s=>{
+ if(typeof s!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(s))return false;
+ const d=new Date(s+'T12:00:00');
+ return !isNaN(d)&&localDate(d)===s&&s>='1900-01-01'&&s<='2199-12-31';
+};
+const dateLabel=s=>`${Number(s.slice(5,7))}月${Number(s.slice(8))}日`;
+const imageOK=s=>typeof s==='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(s);
+const icons={
+ apple:'<path d="M12 8C7 4 3 8 4 13c1 5 4 8 7 6h2c3 2 6-1 7-6 1-5-3-9-8-5Z"/><path d="M12 8c0-4 2-6 5-6 0 3-2 5-5 5m0 1-2-5"/>',
+ home:'<rect x="5" y="3" width="15" height="18" rx="4"/><path d="M9 8h7m-7 4h5m-5 4h6M3 8h3m-3 5h3"/>',
+ month:'<rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h1m6 0h1m-8 4h1"/>',
+ habits:'<rect x="4" y="3" width="16" height="18" rx="5"/><path d="m8 12 3 3 5-6"/>',
+ check:'<path d="m6 12 4 4 8-9"/>',
+ camera:'<rect x="3" y="6" width="18" height="15" rx="4"/><path d="m8 6 1-3h6l1 3"/><circle cx="12" cy="13" r="4"/>',
+ leaf:'<path d="M19 4C9 3 4 8 6 15s14 4 13-11ZM6 19 15 9"/>'
+};
+const icon=name=>`<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons[name]||icons.apple}</svg>`;
+
+/* 状态图标：情绪 + 生活状态，统一线性描边，与整体清新绿调一致 */
+const MOODS={
+ happy:{label:'开心',svg:'<circle cx="12" cy="12" r="9"/><path d="M8.5 14c1 1.4 2.2 2.2 3.5 2.2s2.5-.8 3.5-2.2"/><circle cx="9" cy="10" r=".8" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".8" fill="currentColor" stroke="none"/>'},
+ calm:{label:'平静',svg:'<circle cx="12" cy="12" r="9"/><path d="M8.5 10.5h2M13.5 10.5h2"/><path d="M9 14c1.1 1 2.2 1.5 3 1.5s1.9-.5 3-1.5"/>'},
+ excited:{label:'兴奋',svg:'<circle cx="12" cy="12" r="9"/><path d="M8.5 13.5c1.3 1.8 2.5 2.8 3.5 2.8s2.2-1 3.5-2.8"/><circle cx="9" cy="9.5" r=".8" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r=".8" fill="currentColor" stroke="none"/><path d="M5 6l-.8-1.3M19 6l.8-1.3"/>'},
+ tired:{label:'疲惫',svg:'<circle cx="12" cy="12" r="9"/><path d="M8 10.5l2-1M16 10.5l-2-1"/><path d="M9 15c1-.6 2-.6 3 0s2 .6 3 0"/>'},
+ sad:{label:'难过',svg:'<circle cx="12" cy="12" r="9"/><circle cx="9" cy="9.5" r=".8" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r=".8" fill="currentColor" stroke="none"/><path d="M9 15c1-1.3 2-2 3-2s2 .7 3 2"/>'},
+ miss:{label:'想念',svg:'<path d="M12 20s-7-4.5-7-9.5a4 4 0 0 1 7-2.3 4 4 0 0 1 7 2.3c0 5-7 9.5-7 9.5Z"/>'},
+ angry:{label:'生气',svg:'<circle cx="12" cy="12" r="9"/><path d="M8.5 9l2 1.6M15.5 9l-2 1.6"/><path d="M9 14.5c1-.7 2-.7 3 0s2 .7 3 0"/>'},
+ sick:{label:'生病',svg:'<circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r=".8" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".8" fill="currentColor" stroke="none"/><path d="M9.5 14h5"/><path d="M17 5v3M15.5 6.5h3"/>'},
+ movie:{label:'看电影',svg:'<rect x="3.5" y="6" width="17" height="12" rx="2"/><path d="M7 6v12M17 6v12M3.5 10h17M3.5 14h17"/>'},
+ travel:{label:'出差',svg:'<path d="M2 12l19-7-7 18-3-8-9-3Z"/>'},
+ play:{label:'出去玩',svg:'<circle cx="7.5" cy="7" r="2.5"/><path d="M3 20l4.5-7 3 4 3-5 4.5 8Z"/>'},
+ trip:{label:'旅游',svg:'<rect x="6" y="7" width="12" height="13" rx="2"/><path d="M9 7V5h6v2M9 12h6M12 12v6"/>'},
+ food:{label:'美食',svg:'<path d="M4 11h16a8 8 0 0 1-16 0Z"/><path d="M6 11 5 20M18 11l1 9"/><path d="M12 8c0-1.5 2-1.5 2-3.2"/>'},
+ coffee:{label:'喝咖啡',svg:'<path d="M5 9h11v5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9Z"/><path d="M16 10h2.5a2 2 0 0 1 0 4H16"/><path d="M8 4.5c0 1-1 1-1 2M12 4.5c0 1-1 1-1 2"/>'},
+ sport:{label:'运动',svg:'<path d="M5 9v6M7 7v10M17 7v10M19 9v6"/><path d="M7 12h10"/>'},
+ book:{label:'读书',svg:'<path d="M12 6c-2-1.5-5-1.5-5-1.5v12s3 0 5 1.5c2-1.5 5-1.5 5-1.5v-12s-3 0-5 1.5Z"/><path d="M12 6v12"/>'},
+ home:{label:'宅家',svg:'<path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/>'},
+ birthday:{label:'生日',svg:'<path d="M5 20h14v-3H5Z"/><path d="M5 17c0-4 2-6 7-6s7 2 7 6"/><path d="M12 11V8M9.5 8V6M14.5 8V6"/><circle cx="9.5" cy="5.2" r=".5" fill="currentColor" stroke="none"/><circle cx="14.5" cy="5.2" r=".5" fill="currentColor" stroke="none"/><circle cx="12" cy="4.2" r=".5" fill="currentColor" stroke="none"/>'}
+};
+const moodIcon=(k,sz=24)=>`<svg class="mood-svg" viewBox="0 0 24 24" aria-hidden="true">${(MOODS[k]||MOODS.happy).svg}</svg>`;
+const moodList=()=>Object.entries(MOODS).map(([k,v])=>`<button type="button" class="mood-pick ${formMood===k?'active':''}" data-form-mood="${k}" title="${v.label}" aria-pressed="${formMood===k}">${moodIcon(k)}</button>`).join('');
+function renderMoodPicker(){
+ const grid=$('moodGrid');if(!grid)return;
+ grid.querySelectorAll('.mood-pick').forEach(el=>{
+  const on=el.dataset.formMood===formMood;el.classList.toggle('active',on);el.setAttribute('aria-pressed',on);
+ });
+}
+const rabbitArt=`<svg class="rabbit-art" viewBox="0 0 140 155" aria-hidden="true">
+<ellipse cx="71" cy="143" rx="40" ry="6" fill="#755849" opacity=".12"/>
+<ellipse cx="58" cy="44" rx="12" ry="34" transform="rotate(-13 58 44)" fill="#FFFCF4"/>
+<ellipse cx="86" cy="44" rx="12" ry="35" transform="rotate(9 86 44)" fill="#FFFCF4"/>
+<ellipse cx="58" cy="43" rx="4" ry="23" transform="rotate(-13 58 43)" fill="#EDD0C4"/>
+<ellipse cx="86" cy="43" rx="4" ry="24" transform="rotate(9 86 43)" fill="#EDD0C4"/>
+<ellipse cx="73" cy="119" rx="30" ry="25" fill="#FFFCF4"/>
+<circle cx="103" cy="123" r="10" fill="#FFFCF4"/>
+<ellipse cx="71" cy="86" rx="34" ry="30" fill="#FFFCF4"/>
+<circle cx="59" cy="84" r="2.2" fill="#505949"/><circle cx="82" cy="84" r="2.2" fill="#505949"/>
+<path d="m68 94 3 2 3-2" stroke="#B18B7F" stroke-width="2" fill="none" stroke-linecap="round"/>
+<ellipse cx="49" cy="94" rx="5" ry="2.5" fill="#F2D9CB"/><ellipse cx="92" cy="94" rx="5" ry="2.5" fill="#F2D9CB"/>
+</svg>`;
+
+function defaults(){
+ return {
+  entries:[],checks:{},
+  rabbit:{arrival:'',birth:'',bio:'爱吃草，也爱发呆。'},
+  habits:[{id:'sport',name:'运动'},{id:'reading',name:'阅读'},{id:'sleep',name:'早睡'}],
+  tags:[{id:'food',name:'美食'},{id:'surprise',name:'小惊喜'},{id:'growth',name:'成长'}]
+ };
+}
+function normalize(raw){
+ if(!raw||!Array.isArray(raw.entries)||!Array.isArray(raw.habits)||
+ !raw.checks||typeof raw.checks!=='object'||Array.isArray(raw.checks))throw Error('格式不正确');
+ const cleanList=list=>list.map(x=>{
+  if(!x||typeof x.id!=='string'||!x.id||typeof x.name!=='string'||!x.name.trim())throw Error('分类格式不正确');
+  return {id:x.id,name:x.name.trim().slice(0,16)};
+ });
+ const habits=cleanList(raw.habits);
+ const tags=raw.tags===undefined?defaults().tags:cleanList(raw.tags);
+ if(new Set(habits.map(x=>x.id)).size!==habits.length||
+ new Set(tags.map(x=>x.id)).size!==tags.length)throw Error('编号重复');
+ const habitIds=new Set(habits.map(x=>x.id)),tagIds=new Set(tags.map(x=>x.id));
+ const entries=raw.entries.map(e=>{
+  if(!e||!validDate(e.date))throw Error('记录日期不正确');
+  return {id:uid(),date:e.date,type:e.type==='bunny'?'bunny':'life',
+   note:String(e.note||''),image:imageOK(e.image)?e.image:'',
+   mood:typeof e.mood==='string'&&/^[\w-]{1,16}$/.test(e.mood)?e.mood:'',
+   tagIds:[...new Set((Array.isArray(e.tagIds)?e.tagIds:[]).filter(id=>tagIds.has(id)))]};
+ });
+ const checks={};
+ for(const [date,ids] of Object.entries(raw.checks)){
+  if(validDate(date)&&Array.isArray(ids)){
+   const list=[...new Set(ids.filter(id=>habitIds.has(id)))];
+   if(list.length)checks[date]=list;
+  }
+ }
+ const r=raw.rabbit||{};
+ const rabbit={arrival:validDate(r.arrival)?r.arrival:'',birth:validDate(r.birth)?r.birth:'',
+  bio:String(r.bio??'爱吃草，也爱发呆。').slice(0,40)};
+ if(rabbit.arrival>today()||rabbit.birth>today()||
+ (rabbit.birth&&rabbit.arrival&&rabbit.birth>rabbit.arrival))throw Error('兔兔日期不正确');
+ return {entries,checks,habits,tags,rabbit};
+}
+let db=defaults(),readOnly=false;
+// —— 本地存储改用 IndexedDB：容量远大于 localStorage 约 5MB 上限，照片再多也不易爆仓 ——
+const IDB_NAME='apple-island',IDB_STORE='kv';
+function idbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open(IDB_NAME,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(IDB_STORE))r.result.createObjectStore(IDB_STORE)};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});}
+function idbGet(k){return idbOpen().then(db0=>new Promise((res,rej)=>{const t=db0.transaction(IDB_STORE,'readonly').objectStore(IDB_STORE).get(k);t.onsuccess=()=>res(t.result);t.onerror=()=>rej(t.error)}));}
+function idbSet(k,v){return idbOpen().then(db0=>new Promise((res,rej)=>{const t=db0.transaction(IDB_STORE,'readwrite').objectStore(IDB_STORE).put(v,k);t.onsuccess=()=>res();t.onerror=()=>rej(t.error)}));}
+// 初始：先同步尝试从旧 localStorage 加载（兼容历史数据），保证首屏有内容
+try{
+ const raw=localStorage.getItem(KEY)||localStorage.getItem('apple-little-days-v2');
+ if(raw)db=normalize(JSON.parse(raw));
+}catch{readOnly=true}
+// 异步：优先使用 IndexedDB（容量大）；若其为空但有旧 localStorage 数据，则迁移过去并清理
+(async()=>{
+ try{
+  const stored=await idbGet('db');
+  if(typeof stored==='string'&&stored){
+   db=normalize(JSON.parse(stored));readOnly=false;
+   try{localStorage.removeItem(KEY);localStorage.removeItem('apple-little-days-v2')}catch{}
+   render();
+  }else if(localStorage.getItem(KEY)||localStorage.getItem('apple-little-days-v2')){
+   const legacy=localStorage.getItem(KEY)||localStorage.getItem('apple-little-days-v2');
+   await idbSet('db',legacy);
+   try{localStorage.removeItem(KEY);localStorage.removeItem('apple-little-days-v2')}catch{}
+   render();
+  }
+ }catch{/* IndexedDB 不可用时退回内存数据（已含 localStorage 内容） */}
+})();
+let page='home',selected=today(),month=currentMonth();
+let habitId=db.habits[0]?.id||'',period='month',reviewMonth=currentMonth(),reviewYear=Number(today().slice(0,4));
+let scope='all',tagFilter='all',visibleCount=12;
+let calendarMode=(localStorage.getItem('apple-island-calmode')==='photo')?'photo':'mood';
+let calPhotoFilter=localStorage.getItem('apple-island-calfilter')||'all';
+let formMood='';
+let toastTimer,previousFocus,photo='',photoBusy=false,uploadVersion=0;
+let formTags=new Set(),draftTags=[];
+function notify(text){
+ $('toast').textContent=text;$('toast').hidden=false;
+ clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);
+}
+function save(next,restoring=false){
+ if(readOnly&&!restoring){notify('原数据读取异常，已暂停写入保护数据。请从设置恢复备份。');return false}
+ db=next;readOnly=false; // 内存立即更新，UI 不阻塞
+ // 持久化到 IndexedDB（容量大，约数百 MB）；写盘成功后再触发云同步推送
+ idbSet('db',JSON.stringify(next)).then(()=>{
+  if(typeof window.__onSaved==='function')window.__onSaved(next);
+ }).catch(()=>notify('本地存储不可用，请尽快导出备份以防数据丢失。'));
+ return true;
+}
+const checked=(date,id)=>(db.checks[date]||[]).includes(id);
+const completedDates=(id,prefix='')=>Object.keys(db.checks).filter(d=>d<=today()&&d.startsWith(prefix)&&checked(d,id)).sort();
+const entriesOn=date=>db.entries.filter(e=>e.date===date);
+const stat=(n,label,red=false)=>`<div class="stat ${red?'red':''}"><strong>${n}</strong><small>${label}</small></div>`;
+const monthName=s=>`${s.slice(0,4)} 年 ${Number(s.slice(5))} 月`;
+function moveMonth(s,delta){const [y,m]=s.split('-').map(Number);return localDate(new Date(y,m-1+delta,1,12)).slice(0,7)}
+function toggle(date,id){
+ if(!validDate(date)||date>today())return notify('未来日期暂时不能打卡。');
+ if(!db.habits.some(h=>h.id===id))return;
+ const set=new Set(db.checks[date]||[]),done=set.has(id);
+ done?set.delete(id):set.add(id);
+ const checks={...db.checks};if(set.size)checks[date]=[...set];else delete checks[date];
+ if(save({...db,checks})){render();notify(done?'已取消打卡。':'打卡成功。')}
+}
+function tagButtons(entry){
+ return (entry.tagIds||[]).map(id=>{
+  const tag=db.tags.find(t=>t.id===id);
+  return tag?`<button class="card-tag ${entry.type==='bunny'?'rabbit':''}" data-filter-tag="${esc(id)}"># ${esc(tag.name)}</button>`:'';
+ }).join('');
+}
+function cardHTML(e){
+ return `<article class="photo-card">
+ <button class="photo-open" data-view-entry="${esc(e.id)}" aria-label="查看完整记录">
+ ${imageOK(e.image)?`<img src="${esc(e.image)}" alt="${e.type==='bunny'?'苹果的成长照片':'日常照片'}" loading="lazy">`:''}
+ <div class="photo-copy"><p>${esc(e.note||(e.type==='bunny'?'苹果的日常':'今天的记录'))}</p></div></button>
+ ${(e.tagIds||[]).length?`<div class="card-tags">${tagButtons(e)}</div>`:''}
+ <div class="photo-bottom"><small>${esc(e.date)}${e.type==='bunny'?' · 岛主':''}</small>
+ <button class="more" data-entry-menu="${esc(e.id)}" aria-label="编辑或删除记录">···</button></div>
+ </article>`;
+}
+function cards(entries,masonry=true){
+ return masonry?`<div class="masonry">${entries.map(e=>`<div class="tile">${cardHTML(e)}</div>`).join('')}</div>`:
+ `<div class="timeline-cards">${entries.map(cardHTML).join('')}</div>`;
+}
+function empty(title,description,type=''){
+ return `<div class="empty">${icon(type==='bunny'?'apple':'camera')}<h3>${title}</h3><p>${description}</p>
+ <button data-action="entry" data-type="${type}">＋ ${type==='bunny'?'记录苹果':'新增记录'}</button></div>`;
+}
+function habitRow(h,date=today()){
+ const done=checked(date,h.id);
+ return `<div class="habit-row"><div class="habit-symbol">${esc(Array.from(h.name)[0])}</div>
+ <button class="habit-main" data-habit="${esc(h.id)}"><strong>${esc(h.name)} ↗</strong><small>本月 ${completedDates(h.id,currentMonth()).length} 天 · 查看统计</small></button>
+ <button class="check ${done?'done':''}" data-check="${esc(h.id)}" data-date="${date}" ${date>today()?'disabled':''}
+ aria-label="${esc(h.name)}：${done?'取消':'完成'}打卡" aria-pressed="${done}">${done?icon('check'):'＋'}</button></div>`;
+}
+function monthHead(title,target){
+ return `<div class="month-head"><button class="arrow" data-shift="-1" data-target="${target}" aria-label="上一期">‹</button>
+ <strong>${title}</strong><button class="arrow" data-shift="1" data-target="${target}" aria-label="下一期">›</button></div>`;
+}
+function calendar(value,habit=false,mode='dots',photoFilter='all'){
+ const [y,m]=value.split('-').map(Number),offset=new Date(y,m-1,1).getDay(),count=new Date(y,m,0).getDate();
+ let cells=['日','一','二','三','四','五','六'].map(w=>`<span class="weekday">${w}</span>`).join('');
+ cells+='<span></span>'.repeat(offset);
+ for(let n=1;n<=count;n++){
+  const date=`${value}-${String(n).padStart(2,'0')}`,done=checked(date,habitId),entries=entriesOn(date),isToday=date===today();
+  if(habit){
+   cells+=`<button class="day ${done?'checked':''} ${isToday?'today':''}" data-check="${esc(habitId)}" data-date="${date}"
+   ${date>today()?'disabled':''} aria-label="${date}：${done?'取消打卡':'补打卡'}" aria-pressed="${done}">${n}<small>${done?'✓':''}</small></button>`;
+  }else if(mode==='mood'){
+   const mood=entries.map(e=>e.mood).find(Boolean);
+   cells+=`<button class="day ${mood?'mood-day':''} ${date===selected?'selected':''} ${isToday?'today':''}" data-day="${date}" aria-label="${date}">${n}${mood?`<span class="mood-badge">${moodIcon(mood)}</span>`:(done?'<span class="dots"><i class="dot habit"></i></span>':'')}</button>`;
+  }else if(mode==='photo'){
+   const photos=entries.filter(e=>e.image&&(photoFilter==='all'||e.type===photoFilter)).map(e=>e.image);
+   if(photos.length){
+    cells+=`<button class="day ${date===selected?'selected':''} ${isToday?'today':''}" data-day="${date}" aria-label="${date}，共${photos.length}张照片"><span class="dnum-photo">${n}</span><div class="day-photo n1"><div class="pc" style="background-image:url('${photos[0]}')"></div></div></button>`;
+   }else{
+    cells+=`<button class="day ${date===selected?'selected':''} ${isToday?'today':''}" data-day="${date}" aria-label="${date}">${n}${done?'<span class="dots"><i class="dot habit"></i></span>':''}</button>`;
+   }
+  }else{
+   cells+=`<button class="day ${date===selected?'selected':''} ${isToday?'today':''}" data-day="${date}" aria-label="${date}">${n}<span class="dots">
+   ${entries.some(e=>e.type==='life')?'<i class="dot"></i>':''}${entries.some(e=>e.type==='bunny')?'<i class="dot rabbit"></i>':''}
+   ${(db.checks[date]||[]).length?'<i class="dot habit"></i>':''}</span></button>`;
+  }
+ }
+ return `<div class="calendar${mode==='photo'?' photo-mode':''}">${cells}</div>`;
+}
+function filteredEntries(){
+ return [...db.entries].filter(e=>
+  (scope==='all'||e.type===scope)&&
+  (tagFilter==='all'||(tagFilter==='untagged'?!(e.tagIds||[]).length:(e.tagIds||[]).includes(tagFilter)))
+ ).sort((a,b)=>b.date.localeCompare(a.date));
+}
+function homeView(){
+ const now=today(),weekday=['日','一','二','三','四','五','六'][new Date().getDay()];
+ const daily=entriesOn(now),done=db.habits.filter(h=>checked(now,h.id)).length;
+ const monthlyPhotos=db.entries.filter(e=>e.date.startsWith(currentMonth())&&e.image).length;
+ const arrival=db.rabbit.arrival?dayNo(now)-dayNo(db.rabbit.arrival)+1:null;
+ const latest=[...db.entries].filter(e=>e.type==='bunny').sort((a,b)=>b.date.localeCompare(a.date))[0];
+ const hour=new Date().getHours(),greeting=hour<11?'早上好，今天记点什么？':hour<18?'今天，有什么新鲜事？':'晚上好，看看今天。';
+ const entries=filteredEntries();
+ const selectedTag=db.tags.find(t=>t.id===tagFilter);
+ return `<section class="overview">
+ <div class="overview-top"><span class="overview-date">${dateLabel(now)} · 周${weekday}</span><span class="weather">${icon('leaf')} 今日概览</span></div>
+ <h2>${greeting}</h2><p>${daily.length?`今天已经留下 ${daily.length} 条记录。`:'吃了什么，看到什么，随手记一下。'}</p>
+ <div class="overview-bottom"><div class="overview-numbers">
+ <div class="overview-number"><strong>${daily.length}</strong><span>条今日记录</span></div>
+ <div class="overview-number"><strong>${monthlyPhotos}</strong><span>张本月照片</span></div>
+ </div><button class="overview-add" data-action="entry" aria-label="新增记录">＋</button></div></section>
+
+ <button class="apple-mini" data-page="rabbit"><span class="mini-avatar">${rabbitArt}</span>
+ <span class="mini-copy"><strong>${arrival!==null?`苹果到家第 ${arrival} 天`:'岛主苹果'}</strong>
+ <small>${latest?`最近记录 · ${dateLabel(latest.date)}`:'看看苹果的成长记录'}</small></span><span class="mini-arrow">›</span></button>
+
+ <div class="section"><h3>今天打卡 <span class="muted" style="font-weight:400">${done}/${db.habits.length}</span></h3>
+ <button class="link" data-page="habits">查看全部 ↗</button></div>
+ <div class="quick-habits">${db.habits.map(h=>`<div class="quick-habit"><button class="quick-name" data-habit="${esc(h.id)}">${esc(h.name)}</button>
+ <button class="quick-check ${checked(now,h.id)?'done':''}" data-check="${esc(h.id)}" data-date="${now}" aria-label="${esc(h.name)}打卡" aria-pressed="${checked(now,h.id)}">
+ ${checked(now,h.id)?icon('check'):'＋'}</button></div>`).join('')}
+ <button class="quick-habit link" data-action="category">＋ 添加</button></div>
+
+ <div class="section" id="feedTop"><div class="section-title"><span class="marker"></span><h3>最近记录</h3></div><button class="link" data-action="manage-tags">管理标签</button></div>
+ <div class="filter-row">${[['all','全部'],['life','日常'],['bunny','岛主']].map(([id,name])=>
+ `<button class="scope ${scope===id?'active':''}" data-scope="${id}" aria-pressed="${scope===id}">${name}</button>`).join('')}</div>
+ <div class="filter-row">
+ <button class="tag-filter ${tagFilter==='all'?'active':''}" data-filter-tag="all">全部标签</button>
+ ${db.tags.map(t=>`<button class="tag-filter ${tagFilter===t.id?'active':''}" data-filter-tag="${esc(t.id)}">${esc(t.name)}</button>`).join('')}
+ <button class="tag-filter ${tagFilter==='untagged'?'active':''}" data-filter-tag="untagged">未加标签</button></div>
+ <div class="filter-summary"><span>${scope==='bunny'?'岛主':scope==='life'?'日常':'全部记录'}${tagFilter!=='all'?` · ${tagFilter==='untagged'?'未加标签':esc(selectedTag?.name||'')}`:''} · ${entries.length} 条</span>
+ ${scope!=='all'||tagFilter!=='all'?'<button data-action="clear-filter">清除筛选</button>':''}</div>
+ ${entries.length?cards(entries.slice(0,visibleCount)):
+ db.entries.length?'<div class="empty"><h3>还没有符合条件的记录</h3><p>试试其他标签，或清除筛选。</p><button data-action="clear-filter">查看全部记录</button></div>':
+ `<section class="welcome"><h3>从第一张照片开始</h3><p>吃饭、出门，或者苹果发呆的样子。<br>用照片和标签，慢慢整理你的日常。</p>
+ <div class="welcome-tags"><span>美食</span><span>小惊喜</span><span>苹果</span></div><button class="link" data-action="entry">＋ 添加第一条记录</button></section>`}
+ ${entries.length>visibleCount?'<button class="load-more" data-action="load-more">查看更多记录</button>':''}
+ <div class="brand-foot">${icon('apple')}<span>APPLE ISLAND</span></div>`;
+}
+function monthView(){
+ const list=db.entries.filter(e=>e.date.startsWith(month));
+ const count=Object.keys(db.checks).filter(d=>d.startsWith(month)&&d<=today()&&(db.checks[d]||[]).length).length;
+ const daily=entriesOn(selected);
+ const calMode=calendarMode;
+ return `<div class="page-head"><h2>月历</h2><button class="link" data-action="today">今天</button></div>
+ <div class="cal-switch"><button data-cal-mode="mood" class="${calMode==='mood'?'active':''}">心情版</button><button data-cal-mode="photo" class="${calMode==='photo'?'active':''}">图片版</button></div>
+ ${calMode==='photo'?`<div class="cal-subfilter">${[['all','全部'],['life','日常'],['bunny','岛主']].map(([id,name])=>`<button class="${calPhotoFilter===id?'active':''}" data-cal-filter="${id}">${name}</button>`).join('')}</div>`:''}
+ <div class="card">${monthHead(monthName(month),'overview')}${calendar(month,false,calMode,calPhotoFilter)}</div>
+ <div class="stats">${stat(list.filter(e=>e.image).length,'张照片')}${stat(list.filter(e=>e.type==='bunny').length,'条苹果记录',true)}${stat(count,'天有打卡')}</div>
+ <div class="section"><h3>${dateLabel(selected)}</h3><button class="link" data-action="entry" ${selected>today()?'disabled':''}>＋ 新增记录</button></div>
+ ${daily.length?cards(daily):selected>today()?'<div class="info">还没到这一天，先记录今天吧。</div>':empty('这一天还没有记录','可以补记以前的照片和日常。')}
+ <div class="section"><h3>当天打卡</h3><span class="muted">点击圆圈可补记或取消</span></div>
+ ${db.habits.map(h=>habitRow(h,selected)).join('')}`;
+}
+function rabbitView(){
+ const r=db.rabbit,arrival=r.arrival?dayNo(today())-dayNo(r.arrival)+1:'—',age=r.birth?dayNo(today())-dayNo(r.birth):'—';
+ const entries=db.entries.filter(e=>e.type==='bunny').sort((a,b)=>b.date.localeCompare(a.date));
+ const dates=[...new Set(entries.map(e=>e.date))];
+ return `<div class="page-head"><h2>岛主</h2><button class="link" data-action="profile">编辑资料</button></div>
+ <section class="rabbit-hero"><div class="kicker">PROFILE / 001</div><h2>苹果</h2><span class="badge">苹果岛常住居民</span><p class="muted">${esc(r.bio)}</p>${rabbitArt}</section>
+ <div class="stats">${stat(arrival,'到家天数',true)}${stat(age,'年龄 / 天')}${stat(entries.length,'成长记录')}</div>
+ ${!r.arrival?'<div class="info">填写到家日期，就能开始统计相伴的时间。</div>':''}
+ <div class="section"><h3>成长记录</h3><button class="link" data-action="entry" data-type="bunny">＋ 记录苹果</button></div>
+ ${dates.length?`<div class="timeline">${dates.map(date=>{
+ const day=r.arrival&&date>=r.arrival?` · 到家第 ${dayNo(date)-dayNo(r.arrival)+1} 天`:'';
+ return `<div class="timeline-group"><div class="timeline-date">${date}${day}</div>${cards(entries.filter(e=>e.date===date),false)}</div>`;
+ }).join('')}</div>`:empty('苹果的第一条成长记录','照片、体重变化、小习惯，都可以记在这里。','bunny')}`;
+}
+function reviewStats(){
+ const start=period==='month'?reviewMonth+'-01':reviewYear+'-01-01';
+ const [y,m]=reviewMonth.split('-').map(Number);
+ const end=period==='month'?localDate(new Date(y,m,0,12)):reviewYear+'-12-31';
+ const cutoff=end<today()?end:today(),elapsed=start>today()?0:dayNo(cutoff)-dayNo(start)+1;
+ const dates=completedDates(habitId,period==='month'?reviewMonth:String(reviewYear));
+ let longest=0,run=0,last=null;
+ for(const date of dates){const n=dayNo(date);run=last!==null&&n===last+1?run+1:1;longest=Math.max(longest,run);last=n}
+ return {count:dates.length,longest,elapsed,rate:elapsed?Math.round(dates.length/elapsed*100):0};
+}
+function habitsView(){
+ if(!db.habits.length)return `<div class="page-head"><h2>打卡</h2></div><div class="empty">${icon('habits')}<h3>添加你的第一个分类</h3><p>运动、阅读、早睡，或者陪苹果玩。<br>每个分类都有月度和年度统计。</p><button data-action="category">＋ 添加分类</button></div>`;
+ const h=db.habits.find(h=>h.id===habitId)||db.habits[0];habitId=h.id;
+ const s=reviewStats();
+ const chart=period==='month'?calendar(reviewMonth,true):`<div class="bars">${Array.from({length:12},(_,i)=>{
+ const key=`${reviewYear}-${String(i+1).padStart(2,'0')}`,count=completedDates(habitId,key).length;
+ return `<button class="bar ${key===currentMonth()?'current':''}" data-review-month="${key}" aria-label="${i+1}月完成${count}天，查看月度统计"><em>${count}</em><i style="height:${Math.max(3,count/31*115)}px"></i><small>${i+1}</small></button>`;
+ }).join('')}</div>`;
+ return `<div class="page-head"><h2>打卡</h2><button class="link" data-action="manage">管理分类</button></div>
+ <div class="tabs">${db.habits.map(item=>`<button class="chip ${item.id===habitId?'active':''}" data-habit="${esc(item.id)}">${esc(item.name)}</button>`).join('')}<button class="chip" data-action="category">＋ 添加</button></div>
+ ${habitRow(h)}<div class="segment"><button class="${period==='month'?'active':''}" data-period="month">月度统计</button><button class="${period==='year'?'active':''}" data-period="year">年度统计</button></div>
+ <div class="card">${monthHead(period==='month'?monthName(reviewMonth):reviewYear+' 年','review')}<p class="muted">${esc(h.name)}</p>
+ <div class="stats review-stats">${stat(s.count,'完成天数')}${stat(s.rate+'%','完成率')}${stat(s.longest,'最长连续 / 天')}</div>${chart}</div>
+ <p class="foot">${period==='month'?'点选日期，可补打卡或取消。':'横轴为月份，点击柱形查看当月统计。'}<br>每类每天计 1 次；完成率按所选周期<br>截至今天已过的 ${s.elapsed} 天计算。<br>最长连续仅统计所选周期内的记录。</p>`;
+}
+
+/* 瀑布流高度更新 */
+let masonryObserver=null,masonryFrame=0;
+function fitMasonry(){
+ document.querySelectorAll('.masonry .tile').forEach(tile=>{
+  const article=tile.firstElementChild;
+  const span=Math.max(1,Math.ceil((article.getBoundingClientRect().height+12)/20));
+  tile.style.gridRowEnd='span '+span;
+ });
+}
+function scheduleMasonry(){
+ cancelAnimationFrame(masonryFrame);
+ masonryFrame=requestAnimationFrame(fitMasonry);
+}
+function bindMasonry(){
+ masonryObserver?.disconnect();
+ if('ResizeObserver' in window){
+  masonryObserver=new ResizeObserver(scheduleMasonry);
+  document.querySelectorAll('.masonry .photo-card').forEach(el=>masonryObserver.observe(el));
+ }
+ document.querySelectorAll('.masonry img').forEach(img=>img.addEventListener('load',scheduleMasonry,{once:true}));
+ fitMasonry();scheduleMasonry();
+}
+window.addEventListener('resize',scheduleMasonry);
+function render(){
+ $('app').dataset.page=page;$('settingsButton').innerHTML=icon('apple');
+ $('nav').innerHTML=[['home','home','日常'],['month','month','月历'],['rabbit','apple','岛主'],['habits','habits','打卡']]
+ .map(([key,i,title])=>`<button class="nav-item ${key===page?'active':''} ${key==='rabbit'?'rabbit':''}" data-page="${key}" ${key===page?'aria-current="page"':''}>${icon(i)}${title}</button>`).join('');
+ $('content').innerHTML=({home:homeView,month:monthView,rabbit:rabbitView,habits:habitsView})[page]();
+ bindMasonry();
+}
+function showModal(title,html){
+ if($('overlay').hidden)previousFocus=document.activeElement;
+ uploadVersion++;photoBusy=false;photo='';
+ $('modalTitle').textContent=title;$('modalBody').innerHTML=html;
+ $('overlay').hidden=false;document.body.style.overflow='hidden';
+ $('app').inert=true;$('nav').inert=true;
+ setTimeout(()=>$('modalBody').querySelector('input,select,textarea,button')?.focus(),0);
+}
+function closeModal(){
+ uploadVersion++;$('overlay').hidden=true;document.body.style.overflow='';
+ $('app').inert=false;$('nav').inert=false;
+ if(previousFocus?.isConnected)previousFocus.focus();else $('settingsButton').focus();
+}
+function updatePreview(){
+ if(!$('preview'))return;
+ $('preview').hidden=!photo;$('removePhoto').hidden=!photo;
+ if(photo)$('preview').src=photo;else $('preview').removeAttribute('src');
+}
+function renderTagOptions(){
+ if(!$('tagOptions'))return;
+ $('tagOptions').innerHTML=draftTags.map(t=>`<button type="button" class="tag-option ${formTags.has(t.id)?'selected':''}" data-form-tag="${esc(t.id)}" aria-pressed="${formTags.has(t.id)}">
+ ${esc(t.name)}${formTags.has(t.id)?' ✓':''}</button>`).join('')||'<span class="muted">可以创建第一个标签。</span>';
+}
+function entryForm(type='',id=''){
+ const old=db.entries.find(e=>e.id===id);
+ let date=old?.date||(page==='month'?selected:today());if(date>today())date=today();
+ const chosen=old?.type||(type==='bunny'||page==='rabbit'?'bunny':'life');
+ formMood=old?.mood||'';
+ showModal(old?'编辑记录':chosen==='bunny'?'记录苹果':'新增记录',`
+ <form id="entryForm" data-id="${esc(old?.id||'')}">
+ <label class="field" for="entryDate">日期</label><input id="entryDate" type="date" min="1900-01-01" max="${today()}" value="${date}" required>
+ <label class="field" for="entryType">记录到</label><select id="entryType"><option value="life">日常</option><option value="bunny">岛主 · 苹果</option></select>
+ <label class="field" for="photoFile">照片 · 可选</label><input id="photoFile" type="file" accept="image/*">
+ <img id="preview" class="preview" alt="照片预览" hidden>
+ <button type="button" class="link" id="removePhoto" data-action="remove-photo" hidden>移除照片</button>
+ <label class="field">今天的状态 · 可选</label><div class="mood-grid" id="moodGrid">${moodList()}</div>
+ <label class="field" for="entryNote">写一点什么</label><textarea id="entryNote" placeholder="今天吃了什么？苹果又在做什么？">${esc(old?.note||'')}</textarea>
+ <label class="field">标签 · 可多选</label><div class="tag-options" id="tagOptions"></div>
+ <div class="inline-input"><input id="newTagName" maxlength="16" placeholder="输入新标签" aria-label="新标签名称"><button type="button" data-action="draft-tag">＋ 添加</button></div>
+ <button class="primary" id="saveEntry" type="submit">保存记录</button>
+ <p class="foot" style="margin-top:12px">照片压缩后保存在当前浏览器，请保留原图。</p></form>`);
+ $('entryType').value=chosen;photo=old?.image||'';formMood=old?.mood||'';
+ draftTags=db.tags.map(t=>({...t}));formTags=new Set(old?.tagIds||[]);
+ updatePreview();renderTagOptions();
+}
+function addDraftTag(){
+ const name=$('newTagName').value.trim();if(!name)return;
+ let tag=draftTags.find(t=>t.name===name);
+ if(!tag){tag={id:uid(),name};draftTags.push(tag)}
+ formTags.add(tag.id);$('newTagName').value='';renderTagOptions();
+}
+function viewEntry(id){
+ const e=db.entries.find(x=>x.id===id);if(!e)return;
+ showModal(e.type==='bunny'?'苹果的记录':'日常记录',`
+ <p class="muted">${esc(e.date)}</p>
+ ${e.image?`<img class="detail-image" src="${esc(e.image)}" alt="完整记录照片">`:''}
+ <p class="detail-text">${esc(e.note)}</p>
+ <div class="card-tags" style="padding:0">${tagButtons(e)}</div>
+ <button class="secondary" data-edit-entry="${esc(e.id)}">编辑记录</button>`);
+}
+function categoryForm(id=''){
+ const h=db.habits.find(x=>x.id===id);
+ showModal(h?'重命名分类':'添加分类',`<form id="categoryForm" data-id="${esc(h?.id||'')}">
+ <label class="field" for="habitName">分类名称</label><input id="habitName" maxlength="16" value="${esc(h?.name||'')}" placeholder="例如：运动、阅读、喝水" required>
+ <p class="muted" style="margin-top:13px">每个分类都有独立的月度和年度统计。</p><button class="primary" type="submit">保存分类</button></form>`);
+}
+function manageCategories(){
+ showModal('管理分类',`${db.habits.map(h=>`<div class="manage-row"><div><strong>${esc(h.name)}</strong><small>累计打卡 ${completedDates(h.id).length} 天</small></div>
+ <div style="display:flex;align-items:center"><button class="link" data-rename="${esc(h.id)}">改名</button><button class="delete" data-delete-habit="${esc(h.id)}">删除</button></div></div>`).join('')||'<p class="muted">还没有分类。</p>'}
+ <button class="primary" data-action="category">＋ 添加分类</button>`);
+}
+function manageTags(){
+ showModal('管理标签',`${db.tags.map(t=>`<div class="manage-row"><div><strong># ${esc(t.name)}</strong>
+ <small>${db.entries.filter(e=>(e.tagIds||[]).includes(t.id)).length} 条记录</small></div>
+ <div style="display:flex;align-items:center"><button class="link" data-rename-tag="${esc(t.id)}">改名</button><button class="delete" data-delete-tag="${esc(t.id)}">删除</button></div></div>`).join('')||'<p class="muted">还没有标签。</p>'}
+ <button class="primary" data-action="tag-form">＋ 新增标签</button><p class="foot">删除标签不会删除照片和日记。</p>`);
+}
+function tagForm(id=''){
+ const t=db.tags.find(t=>t.id===id);
+ showModal(t?'重命名标签':'新增标签',`<form id="tagForm" data-id="${esc(t?.id||'')}">
+ <label class="field" for="tagName">标签名称</label><input id="tagName" maxlength="16" value="${esc(t?.name||'')}" required>
+ <button class="primary" type="submit">保存标签</button></form>`);
+}
+function profileForm(){
+ showModal('岛主资料',`<form id="profileForm">
+ <label class="field" for="arrival">到家日期</label><input id="arrival" type="date" min="1900-01-01" max="${today()}" value="${esc(db.rabbit.arrival)}">
+ <label class="field" for="birth">出生日期 · 不确定可留空</label><input id="birth" type="date" min="1900-01-01" max="${today()}" value="${esc(db.rabbit.birth)}">
+ <label class="field" for="bio">苹果的小介绍</label><input id="bio" maxlength="40" value="${esc(db.rabbit.bio)}">
+ <p class="muted" style="margin-top:13px">到家当天计为第 1 天；年龄按出生后经过的天数统计。</p>
+ <button class="primary" type="submit">保存资料</button></form>`);
+}
+function settings(){
+ showModal('设置与备份',`<div class="info" style="margin:0">记录仅保存在当前设备，可选开启云同步备份到你的账号。</div>
+ ${readOnly?'<div class="info">原数据读取异常，已暂停写入。请恢复有效备份。</div>':''}
+ <button class="primary" data-action="export">导出完整备份</button>
+ <button class="secondary" data-action="manage-tags">管理记录标签</button>
+ <label class="field" for="importFile">恢复备份 · 替换当前全部数据</label><input id="importFile" type="file" accept=".json,application/json">
+ <p class="foot">备份包含照片、日记、标签、岛主资料及打卡记录。<br>请妥善保管备份文件。</p>`);
+}
+function exportBackup(){
+ if(readOnly)return notify('原数据读取异常，暂不导出空数据覆盖你的备份。');
+ const json=JSON.stringify({app:'苹果岛',version:4,exportedAt:new Date().toISOString(),data:db});
+ const blob=new Blob([json],{type:'application/json'});
+ // 用 data: URL（base64），保证安卓 WebView 也能触发下载并拿到内容
+ const reader=new FileReader();
+ reader.onload=function(){
+   const a=document.createElement('a');
+   a.href=reader.result;
+   a.download=`苹果岛备份-${today()}.json`;
+   document.body.appendChild(a);a.click();a.remove();
+   notify('已发起下载，请到「下载」目录查看备份文件。');
+ };
+ reader.onerror=function(){ notify('导出失败，请重试。'); };
+ reader.readAsDataURL(blob);
+}
+function setTagFilter(id){
+ if(!$('overlay').hidden)closeModal();
+ page='home';tagFilter=id;visibleCount=12;render();
+ requestAnimationFrame(()=>$('feedTop')?.scrollIntoView({block:'start'}));
+}
+
+/* 按钮事件 */
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ const action=b.dataset.action;
+ if(action==='close')closeModal();
+ if(action==='entry')entryForm(b.dataset.type);
+ if(action==='category')categoryForm();
+ if(action==='manage')manageCategories();
+ if(action==='profile')profileForm();
+ if(action==='settings')settings();
+ if(action==='export')exportBackup();
+ if(action==='manage-tags')manageTags();
+ if(action==='tag-form')tagForm();
+ if(action==='draft-tag')addDraftTag();
+ if(action==='today'){selected=today();month=currentMonth();render()}
+ if(action==='load-more'){visibleCount+=12;render()}
+ if(action==='clear-filter'){scope='all';tagFilter='all';visibleCount=12;render()}
+ if(action==='remove-photo'){
+  uploadVersion++;photo='';photoBusy=false;$('photoFile').value='';$('saveEntry').disabled=false;updatePreview();
+ }
+ if(b.dataset.page){page=b.dataset.page;render();window.scrollTo(0,0)}
+ if(b.dataset.scope){scope=b.dataset.scope;visibleCount=12;render()}
+ if(b.dataset.filterTag){
+  // 从卡片上的标签进入时，查看该标签的所有记录。
+  if(b.classList.contains('card-tag'))scope='all';
+  setTagFilter(b.dataset.filterTag);
+ }
+ if(b.dataset.formTag){
+  const id=b.dataset.formTag;formTags.has(id)?formTags.delete(id):formTags.add(id);renderTagOptions();
+ }
+ if(b.dataset.day){selected=b.dataset.day;render()}
+ if(b.dataset.calMode){calendarMode=b.dataset.calMode;localStorage.setItem('apple-island-calmode',calendarMode);render()}
+ if(b.dataset.calFilter){calPhotoFilter=b.dataset.calFilter;localStorage.setItem('apple-island-calfilter',calPhotoFilter);render()}
+ if(b.dataset.formMood){formMood=formMood===b.dataset.formMood?'':b.dataset.formMood;renderMoodPicker()}
+ if(b.dataset.habit){habitId=b.dataset.habit;page='habits';render();window.scrollTo(0,0)}
+ if(b.dataset.check)toggle(b.dataset.date,b.dataset.check);
+ if(b.dataset.period){
+  period=b.dataset.period;
+  if(period==='year')reviewYear=Number(reviewMonth.slice(0,4));
+  else if(!reviewMonth.startsWith(String(reviewYear)))reviewMonth=`${reviewYear}-01`;
+  render();
+ }
+ if(b.dataset.reviewMonth){reviewMonth=b.dataset.reviewMonth;period='month';render()}
+ if(b.dataset.shift){
+  const delta=Number(b.dataset.shift);
+  if(b.dataset.target==='overview'){
+   const next=moveMonth(month,delta);if(next<'1900-01'||next>'2199-12')return;
+   month=next;selected=month+'-01';
+  }else if(period==='month'){
+   const next=moveMonth(reviewMonth,delta);if(next<'1900-01'||next>'2199-12')return;
+   reviewMonth=next;reviewYear=Number(next.slice(0,4));
+  }else{
+   if(reviewYear+delta<1900||reviewYear+delta>2199)return;reviewYear+=delta;
+  }
+  render();
+ }
+ if(b.dataset.viewEntry)viewEntry(b.dataset.viewEntry);
+ if(b.dataset.entryMenu){
+  const entry=db.entries.find(x=>x.id===b.dataset.entryMenu);if(!entry)return;
+  showModal('记录操作',`<p class="muted">${esc(entry.date)} · ${entry.type==='bunny'?'岛主记录':'日常'}</p>
+  <button class="primary" data-edit-entry="${esc(entry.id)}">编辑记录</button>
+  <button class="danger" data-delete-entry="${esc(entry.id)}">删除记录</button><button class="secondary" data-action="close">取消</button>`);
+ }
+ if(b.dataset.editEntry)entryForm('',b.dataset.editEntry);
+ if(b.dataset.deleteEntry){
+  const id=b.dataset.deleteEntry;
+  if(!confirm('删除这条记录？照片和文字会从所有页面同步移除，无法撤销。'))return;
+  if(save({...db,entries:db.entries.filter(e=>e.id!==id)})){closeModal();render();notify('记录已删除。')}
+ }
+ if(b.dataset.rename)categoryForm(b.dataset.rename);
+ if(b.dataset.deleteHabit){
+  const id=b.dataset.deleteHabit,h=db.habits.find(x=>x.id===id);if(!h)return;
+  if(!confirm(`删除「${h.name}」？\n\n该分类及其全部历史打卡、复盘数据都会删除，无法撤销。其他分类和日记不受影响。`))return;
+  const checks={};
+  for(const [date,ids] of Object.entries(db.checks)){const rest=ids.filter(x=>x!==id);if(rest.length)checks[date]=rest}
+  if(save({...db,habits:db.habits.filter(x=>x.id!==id),checks})){
+   if(habitId===id)habitId=db.habits[0]?.id||'';
+   render();manageCategories();notify('分类及历史打卡已删除。');
+  }
+ }
+ if(b.dataset.renameTag)tagForm(b.dataset.renameTag);
+ if(b.dataset.deleteTag){
+  const id=b.dataset.deleteTag,t=db.tags.find(t=>t.id===id);if(!t)return;
+  if(!confirm(`删除标签「${t.name}」？\n照片和日记不会删除，只移除标签关联。`))return;
+  const entries=db.entries.map(e=>({...e,tagIds:(e.tagIds||[]).filter(x=>x!==id)}));
+  if(save({...db,tags:db.tags.filter(t=>t.id!==id),entries})){
+   if(tagFilter===id)tagFilter='all';render();manageTags();notify('标签已删除，记录已保留。');
+  }
+ }
+});
+$('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))closeModal()});
+document.addEventListener('keydown',e=>{
+ if($('overlay').hidden)return;
+ if(e.key==='Escape')closeModal();
+ if(e.key==='Enter'&&e.target.id==='newTagName'){e.preventDefault();addDraftTag()}
+ if(e.key==='Tab'){
+  const items=[...$('overlay').querySelectorAll('button,input,textarea,select')].filter(el=>!el.disabled&&!el.hidden);
+  const first=items[0],last=items[items.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+});
+function compressImage(file){
+ return new Promise((resolve,reject)=>{
+  const url=URL.createObjectURL(file),img=new Image();
+  img.onload=()=>{
+   try{
+    const scale=Math.min(1,1200/Math.max(img.width,img.height)),canvas=document.createElement('canvas');
+    canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+    const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',.75));
+   }catch(err){reject(err)}finally{URL.revokeObjectURL(url)}
+  };
+  img.onerror=()=>{URL.revokeObjectURL(url);reject(Error('无法读取照片'))};img.src=url;
+ });
+}
+document.addEventListener('change',async e=>{
+ if(e.target.id==='photoFile'){
+  const file=e.target.files[0],version=++uploadVersion;
+  photoBusy=false;$('saveEntry').disabled=false;
+  if(!file)return;
+  if(file.size>20*1024*1024){e.target.value='';return notify('请选择小于 20MB 的照片。')}
+  photoBusy=true;$('saveEntry').disabled=true;
+  try{
+   const image=await compressImage(file);if(version!==uploadVersion)return;
+   photo=image;updatePreview();
+  }catch{
+   if(version===uploadVersion){e.target.value='';notify('无法读取照片，请尝试 JPG 或 PNG。')}
+  }finally{
+   if(version===uploadVersion){photoBusy=false;if($('saveEntry'))$('saveEntry').disabled=false}
+  }
+ }
+ if(e.target.id==='importFile'){
+  const file=e.target.files[0];if(!file)return;
+  try{
+   if(file.size>30*1024*1024)throw Error('文件过大');
+   const raw=JSON.parse(await file.text()),restored=normalize(raw.data||raw);
+   if(!confirm('恢复备份会替换当前全部数据。\n建议先导出当前备份。确定继续？'))return;
+   if(save(restored,true)){
+    habitId=db.habits[0]?.id||'';scope='all';tagFilter='all';visibleCount=12;
+    closeModal();render();notify('备份已恢复。');
+   }
+  }catch{notify('无法恢复，请检查是否为有效的苹果岛 JSON 备份。')}
+  finally{e.target.value=''}
+ }
+});
+document.addEventListener('submit',e=>{
+ if(e.target.id==='entryForm'){
+  e.preventDefault();if(photoBusy)return;
+  const date=$('entryDate').value,note=$('entryNote').value.trim(),type=$('entryType').value;
+  if(!validDate(date)||date>today())return notify('请选择今天或更早的有效日期。');
+  if(!photo&&!note)return notify('请添加照片或写下一句话。');
+  if($('newTagName').value.trim())addDraftTag();
+  const id=e.target.dataset.id,entry={id:id||uid(),date,type,note,image:photo,mood:formMood,tagIds:[...formTags]};
+  const entries=id?db.entries.map(x=>x.id===id?entry:x):[entry,...db.entries];
+  if(save({...db,entries,tags:draftTags.map(t=>({...t}))})){
+   selected=date;month=date.slice(0,7);closeModal();
+   if(type==='bunny')page='rabbit';
+   else if(page!=='month'){page='home';scope='all';tagFilter='all'}
+   render();notify('记录已保存。');
+  }
+ }
+ if(e.target.id==='categoryForm'){
+  e.preventDefault();
+  const name=$('habitName').value.trim(),id=e.target.dataset.id;
+  if(!name)return notify('请输入分类名称。');
+  if(db.habits.some(h=>h.name===name&&h.id!==id))return notify('这个分类名称已经存在。');
+  const nextId=id||uid(),habits=id?db.habits.map(h=>h.id===id?{...h,name}:h):[...db.habits,{id:nextId,name}];
+  if(save({...db,habits})){habitId=nextId;page='habits';closeModal();render();notify('分类已保存。')}
+ }
+ if(e.target.id==='tagForm'){
+  e.preventDefault();
+  const name=$('tagName').value.trim(),id=e.target.dataset.id;
+  if(!name)return notify('请输入标签名称。');
+  if(db.tags.some(t=>t.name===name&&t.id!==id))return notify('这个标签已经存在。');
+  const tags=id?db.tags.map(t=>t.id===id?{...t,name}:t):[...db.tags,{id:uid(),name}];
+  if(save({...db,tags})){render();manageTags();notify('标签已保存。')}
+ }
+ if(e.target.id==='profileForm'){
+  e.preventDefault();
+  const arrival=$('arrival').value,birth=$('birth').value,bio=$('bio').value.trim();
+  if((arrival&&(!validDate(arrival)||arrival>today()))||(birth&&(!validDate(birth)||birth>today())))return notify('请选择有效日期，且不能晚于今天。');
+  if(arrival&&birth&&birth>arrival)return notify('出生日期不能晚于到家日期。');
+  if(save({...db,rabbit:{arrival,birth,bio}})){closeModal();render();notify('苹果的资料已保存。')}
+ }
+});
+render();
+if(readOnly)notify('原数据暂时无法读取，已暂停写入保护数据。请检查浏览器或恢复备份。');
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('overlay').hidden)render()});
+</script>
+<script>
+'use strict';
+/* =========================================================================
+ * 苹果岛 · 云同步模块（账号登录 + 云端备份）
+ * 依赖 index.html 中原 App 暴露的全局：db / save / normalize / render / notify / esc
+ * 设计原则：离线优先。未登录时完全本地使用；登录后每次保存自动推送，
+ *          并在登录 / 恢复 / 手动同步时从云端拉取（last-write-wins）。
+ * ========================================================================= */
+
+const CONFIG = {
+  // 默认服务器地址。空字符串表示首次使用需在登录框中填写。
+  // 本地（Android 模拟器连接电脑后端）可填 http://10.0.2.2:3000
+  // 真实设备连接同一局域网电脑后端可填 http://<电脑局域网IP>:3000
+  // 生产环境请填你部署的后端 HTTPS 地址。
+  DEFAULT_SERVER: ''
+};
+
+const AUTH_KEY = 'apple-island-auth';   // {server, token, username, skip}
+const SYNC_KEY = 'apple-island-sync';   // {localUpdatedAt, lastSyncAt}
+
+/* ---------- 持久化 ---------- */
+function loadAuth(){ try{ return JSON.parse(localStorage.getItem(AUTH_KEY)) || {}; }catch{ return {}; } }
+function saveAuth(a){ try{ localStorage.setItem(AUTH_KEY, JSON.stringify(a)); }catch{} }
+function loadSyncMeta(){ try{ return JSON.parse(localStorage.getItem(SYNC_KEY)) || {}; }catch{ return {}; } }
+function saveSyncMeta(m){ try{ localStorage.setItem(SYNC_KEY, JSON.stringify(m)); }catch{} }
+
+let auth = loadAuth();
+let status = 'unauth';          // idle | syncing | offline | error | unauth
+let currentAuthMode = 'login';  // login | register
+let pushTimer = null;
+let suppressPush = false;       // 云端拉取覆盖本地时避免回推
+
+const isAuthed = () => !!(auth && auth.token);
+const serverUrl = () => (auth.server || CONFIG.DEFAULT_SERVER || '').replace(/\/+$/, '');
+
+/* ---------- 与原 App 的保存钩子对接 ---------- */
+window.__onSaved = function(){
+  if(suppressPush) return;
+  schedulePush();
+};
+
+/* ---------- 网络请求 ---------- */
+async function api(path, opts = {}){
+  const base = serverUrl();
+  if(!base) throw Object.assign(new Error('请先在登录框填写服务器地址'), {status:0});
+  const headers = { 'Content-Type': 'application/json' };
+  if(auth.token) headers['Authorization'] = 'Bearer ' + auth.token;
+  const res = await fetch(base + path, {
+    method: opts.method || 'GET',
+    headers,
+    body: opts.body ? JSON.stringify(opts.body) : undefined
+  });
+  let data = null; try{ data = await res.json(); }catch{}
+  if(!res.ok){
+    const err = new Error((data && data.error) || ('请求失败 (' + res.status + ')'));
+    err.status = res.status; throw err;
+  }
+  return data;
+}
+async function register(username, password){
+  const res = await fetch(serverUrl() + '/api/register', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ username, password })
+  });
+  let data=null; try{ data = await res.json(); }catch{}
+  if(!res.ok) throw Object.assign(new Error((data&&data.error)||'注册失败'), {status:res.status});
+  return data; // {token, username}
+}
+async function login(username, password){
+  const res = await fetch(serverUrl() + '/api/login', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ username, password })
+  });
+  let data=null; try{ data = await res.json(); }catch{}
+  if(!res.ok) throw Object.assign(new Error((data&&data.error)||'登录失败'), {status:res.status});
+  return data; // {token, username}
+}
+
+/* ---------- 云同步核心 ---------- */
+function schedulePush(){
+  if(!isAuthed()) return;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(() => { pushNow().catch(()=>{}); }, 800);
+}
+async function pushNow(){
+  if(!isAuthed()) return;
+  setStatus('syncing');
+  try{
+    const updatedAt = Date.now();
+    const m = loadSyncMeta(); m.localUpdatedAt = updatedAt; saveSyncMeta(m);
+    await api('/api/data', { method:'PUT', body:{ db, updatedAt } });
+    const mm = loadSyncMeta(); mm.lastSyncAt = updatedAt; saveSyncMeta(mm);
+    setStatus('idle');
+  }catch(e){
+    setStatus((e && e.status === 401) ? 'error' : 'offline');
+    if(e && e.status === 401){ // token 失效，提示重新登录
+      auth.token = ''; saveAuth(auth); notify('登录已失效，请重新登录。');
+    }
+  }
+}
+async function pullNow(){
+  if(!isAuthed()) return;
+  setStatus('syncing');
+  try{
+    const { db: cloudDb, updatedAt: cloudTs } = await api('/api/data');
+    const localTs = (loadSyncMeta().localUpdatedAt) || 0;
+    if(cloudDb && cloudTs > localTs){
+      suppressPush = true;
+      try{ save(normalize(cloudDb), true); } finally { suppressPush = false; }
+      render();
+      const m = loadSyncMeta(); m.localUpdatedAt = cloudTs; m.lastSyncAt = Date.now(); saveSyncMeta(m);
+    } else if(!cloudDb && dbHasData()){
+      // 云端为空但本地有数据：把本地推上去
+      await pushNow();
+      return;
+    } else {
+      const m = loadSyncMeta(); m.lastSyncAt = Date.now(); saveSyncMeta(m);
+    }
+    setStatus('idle');
+  }catch(e){
+    setStatus((e && e.status === 401) ? 'error' : 'offline');
+  }
+}
+function dbHasData(){
+  return !!(db && (db.entries && db.entries.length) || (db.checks && Object.keys(db.checks).length));
+}
+async function syncNow(){
+  if(!isAuthed()){ openAuth(); return; }
+  notify('正在同步…');
+  await pullNow().catch(()=>{});
+  await pushNow().catch(()=>{});
+}
+
+/* ---------- 状态指示（头部胶囊） ---------- */
+function setStatus(s){
+  status = s;
+  const pill = document.getElementById('syncPill');
+  const text = document.getElementById('syncPillText');
+  if(!pill) return;
+  pill.className = 'sync-pill ' + (isAuthed() ? s : 'unauth');
+  if(!isAuthed()){ text.textContent = '未登录'; return; }
+  const map = { idle:'已同步', syncing:'同步中…', offline:'离线', error:'同步失败' };
+  text.textContent = map[s] || '已同步';
+}
+
+/* ---------- 登录界面 ---------- */
+function openAuth(){
+  const screen = document.getElementById('authScreen');
+  if(screen) screen.hidden = false;
+  const srv = document.getElementById('authServer');
+  if(srv && !srv.value) srv.value = auth.server || CONFIG.DEFAULT_SERVER || '';
+  setAuthMode('login');
+  const msg = document.getElementById('authMsg'); if(msg){ msg.textContent=''; msg.className='auth-msg'; }
+}
+function closeAuth(){ const s=document.getElementById('authScreen'); if(s) s.hidden = true; }
+function setAuthMode(mode){
+  currentAuthMode = mode;
+  document.querySelectorAll('[data-auth-mode]').forEach(btn=>{
+    const on = btn.dataset.authMode === mode;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  const submit = document.getElementById('authSubmit');
+  if(submit) submit.textContent = (mode === 'register') ? '注册并登录' : '登录';
+}
+function authMsg(text, kind){
+  const el = document.getElementById('authMsg');
+  if(!el) return;
+  el.textContent = text; el.className = 'auth-msg ' + (kind || '');
+}
+async function submitAuth(){
+  const server = (document.getElementById('authServer').value || '').trim();
+  const user = (document.getElementById('authUser').value || '').trim();
+  const pass = document.getElementById('authPass').value || '';
+  if(server){ auth.server = server; saveAuth(auth); }
+  if(!user || !pass){ return authMsg('请输入账号和密码', 'err'); }
+  if(!serverUrl()){ return authMsg('请先填写服务器地址', 'err'); }
+  authMsg(currentAuthMode === 'register' ? '注册中…' : '登录中…', '');
+  try{
+    const data = currentAuthMode === 'register'
+      ? await register(user, pass)
+      : await login(user, pass);
+    auth.token = data.token; auth.username = data.username; auth.skip = false;
+    saveAuth(auth);
+    closeAuth(); setStatus('idle');
+    notify(currentAuthMode === 'register' ? '注册成功，已登录' : '登录成功');
+    await pullNow().catch(()=>{});
+    render();
+  }catch(err){
+    authMsg(err.message || '操作失败，请检查服务器地址或账号', 'err');
+  }
+}
+function doLogout(){
+  auth.token = ''; saveAuth(auth); setStatus('unauth');
+  notify('已退出登录，数据仍保留在本机。');
+  // 刷新设置面板中的账号区块
+  if(document.getElementById('overlay') && !document.getElementById('overlay').hidden){
+    const body = document.getElementById('modalBody');
+    if(body) body.insertAdjacentHTML('beforeend', ''); // 触发重渲染由 settings 负责
+    if(typeof settings === 'function') settings();
+  }
+}
+
+/* ---------- 设置面板：追加账号区块 ---------- */
+function accountSection(){
+  if(isAuthed()){
+    const m = loadSyncMeta();
+    const last = m.lastSyncAt ? new Date(m.lastSyncAt).toLocaleString('zh-CN', { hour12:false }) : '尚未同步';
+    return `<div class="account-box">
+      <div class="row"><strong>已登录：${esc(auth.username || '')}</strong><button class="link" data-auth-action="logout">退出登录</button></div>
+      <div class="row"><span>上次同步</span><span>${esc(last)}</span></div>
+      <div class="row"><span>服务器</span><span>${esc(auth.server || CONFIG.DEFAULT_SERVER || '（未设置）')}</span></div>
+      <button class="primary" data-auth-action="sync">立即同步</button>
+    </div>`;
+  }
+  return `<div class="account-box">
+    <div class="row"><strong>云同步账号</strong><button class="link" data-auth-action="open">登录 / 注册</button></div>
+    <div class="server-line">登录后，记录会备份到你的账号，换设备也能恢复。当前服务器：${esc(auth.server || CONFIG.DEFAULT_SERVER || '（未设置）')}</div>
+  </div>`;
+}
+(function patchSettings(){
+  const _orig = settings;
+  settings = function(){
+    _orig();
+    const body = document.getElementById('modalBody');
+    if(body) body.insertAdjacentHTML('beforeend', accountSection());
+  };
+})();
+
+/* ---------- 事件绑定 ---------- */
+document.addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  if(b.dataset.action === 'sync-panel'){
+    if(isAuthed()) syncNow(); else openAuth();
+    return;
+  }
+  const act = b.dataset.authAction;
+  if(act === 'open'){ openAuth(); }
+  else if(act === 'logout'){ doLogout(); }
+  else if(act === 'sync'){ syncNow(); }
+  if(b.id === 'authSkip'){ skipAuth(); return; }
+  const mode = b.dataset.authMode;
+  if(mode){ setAuthMode(mode); }
+});
+
+function skipAuth(){
+  closeAuth(); setStatus('unauth');           // 先关闭登录遮罩，确保主界面一定露出
+  try{ auth.skip = true; saveAuth(auth); }catch(e){}
+  notify('已切换为本地模式，可稍后在「设置 → 云同步账号」中登录。');
+}
+document.addEventListener('submit', e=>{
+  if(e.target && e.target.id === 'authForm'){ e.preventDefault(); submitAuth(); }
+});
+document.addEventListener('visibilitychange', ()=>{
+  if(!document.hidden && isAuthed() && document.getElementById('overlay').hidden){
+    pullNow().catch(()=>{});
+    pushNow().catch(()=>{});
+  }
+});
+
+/* ---------- 启动 ---------- */
+(function init(){
+  if(isAuthed()){
+    setStatus('idle');
+    pullNow().catch(()=>{});
+  } else if(!auth.skip){
+    openAuth();
+  } else {
+    setStatus('unauth');
+  }
+})();
+
+</script>
+</body>
+</html>

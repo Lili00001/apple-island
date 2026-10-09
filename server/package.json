@@ -1,0 +1,13 @@
+{
+  "name": "apple-island-sync-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "苹果岛云同步后端（零依赖 Node.js）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

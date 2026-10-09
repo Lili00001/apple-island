@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 苹果 + 叶子（白色），作为自适应图标前景 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12 8C7 4 3 8 4 13c1 5 4 8 7 6h2c3 2 6-1 7-6 1-5-3-9-8-5Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12 8c0-4 2-6 5-6 0 3-2 5-5 5m0 1-2-5" />
+</vector>

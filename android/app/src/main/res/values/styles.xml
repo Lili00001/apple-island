@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AppleIsland" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- 状态栏使用浅色背景，配合 App 的整体米白风格 -->
+        <item name="android:statusBarColor">#FAFAF7</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:colorForeground">#30382f</item>
+    </style>
+</resources>

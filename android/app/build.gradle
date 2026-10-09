@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.appleisland.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.appleisland.app'
+        minSdk 26
+        targetSdk 34
+        // 迭代新版本时，把 versionCode 加 1（如 1→2→3），versionName 也跟着升级，
+        // 这样手机上直接装新 APK 就会"覆盖更新"，不丢数据。
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    // 固定 debug 签名：提交到仓库，保证每次 GitHub 构建出的 APK 签名一致，
+    // 手机上才能"直接覆盖安装"而不必先卸载（卸载会清空本地数据）。
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        // 调试包也用固定签名，确保可覆盖更新（注意：仓库是公开的则签名密码公开，
+        // 个人自用 / 不上架应用商店无影响；要上架请改用正式 release 签名）。
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        // 原生 WebView，无需 ViewBinding / Compose
+    }
+}
+
+dependencies {
+    // 本项目为纯原生 WebView 壳，无第三方运行时依赖。
+    // 如需使用 AndroidX（例如未来迁移），把 android.useAndroidX 改为 true 并添加对应依赖。
+}
