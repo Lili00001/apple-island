@@ -1,0 +1,59 @@
+name: Build APK
+
+# 触发：手动点一下，或推送到 main/master 自动构建
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    name: Build debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 安装 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 安装 Android SDK
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y unzip wget
+          export ANDROID_HOME=/opt/android-sdk
+          mkdir -p $ANDROID_HOME/cmdline-tools
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdtools.zip
+          unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
+          mv /tmp/cmdtools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+          yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses
+          sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+      - name: 构建 debug APK
+        run: |
+          export ANDROID_HOME=/opt/android-sdk
+          # 兼容两种目录结构：工程在仓库根目录 或 套在 apple-island/ 子目录下
+          if [ -d "android" ]; then
+            ANDROID_DIR="android"
+          elif [ -d "apple-island/android" ]; then
+            ANDROID_DIR="apple-island/android"
+          else
+            echo "未找到 android 目录，当前目录结构："
+            find . -maxdepth 3 -type d | sort
+            exit 1
+          fi
+          echo "找到安卓目录: $ANDROID_DIR"
+          echo "sdk.dir=$ANDROID_HOME" > "$ANDROID_DIR/local.properties"
+          wget -q https://services.gradle.org/distributions/gradle-8.9-bin.zip -O /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          /opt/gradle-8.9/bin/gradle -p "$ANDROID_DIR" assembleDebug --no-daemon
+
+      - name: 上传 APK 产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-island-apk
+          path: '**/app/build/outputs/apk/debug/app-debug.apk'
